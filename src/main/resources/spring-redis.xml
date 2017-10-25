@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="classpath:redis.properties"/>
+    <context:component-scan base-package="com.redis"/>
+
+    <!--Java调用redis的Jedis包-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="minIdle" value="8"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <!--只有为false，程序才能跑，不懂-->
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <!--Idle时进行连接扫描-->
+        <!--<property name="testWhileIdle" value="true"/>-->
+        <!--表示idle object evitor两次扫描之间要sleep的毫秒数-->
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+        <!--表示idle object evitor每次扫描的最多的对象数-->
+        <property name="numTestsPerEvictionRun" value="10"/>
+        <!--表示一个对象至少停留在idle状态的最短时间，然后才能被idle object evitor扫描并驱逐；这一项只有在timeBetweenEvictionRunsMillis大于0时才有意义-->
+        <property name="minEvictableIdleTimeMillis" value="60000"/>
+    </bean>
+
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" scope="singleton">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+                <bean name="master" class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${redis.master.host}"/>
+                    <constructor-arg name="port" value="${redis.master.port}"/>
+                    <constructor-arg name="timeout" value="${redis.timeout}"/>
+                    <!--<constructor-arg name="weight" value="1"/> 报错-->
+                    <property name="password" value="password"/>
+                </bean>
+                <bean name="slaver" class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${redis.slave.host}"/>
+                    <constructor-arg name="port" value="${redis.slave.port}"/>
+                    <constructor-arg name="timeout" value="${redis.timeout}"/>
+                    <!--<constructor-arg name="weight" value="1"/> 报错-->
+                    <property name="password" value="password"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!--<bean id="redisDataSourceImpl" class="com.redis.reids.RedisDataSourceImpl">-->
+        <!--<property name="shardedJedisPool" ref="shardedJedisPool"/>-->
+    <!--</bean>-->
+    <!---->
+    <!--<bean id="redisClientUtils" class="com.redis.reids.RedisClientUtils">-->
+        <!--<property name="redisDataSource" ref="redisDataSourceImpl"/>-->
+    <!--</bean>-->
+</beans>
