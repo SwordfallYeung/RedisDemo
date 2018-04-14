@@ -1,4 +1,4 @@
-package com.redis.reids;
+package com.redis.redis;
 
 import redis.clients.jedis.ShardedJedis;
 

@@ -1,6 +1,6 @@
 package com.redis.main;
 
-import com.redis.reids.RedisClientUtils;
+import com.redis.redis.RedisClientUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
