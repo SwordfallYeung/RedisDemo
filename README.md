@@ -9,3 +9,6 @@ https://rubygems.org/gems/redis/versions/3.2.1<br/>
 https://blog.csdn.net/moshenglv/article/details/72847811
 
 redis如果不配置主从，则redis写数据时只会在n台机器中的一台上
+
+### Redis 范围分区与哈希分区
+http://www.cnblogs.com/EasonJim/p/7624903.html
