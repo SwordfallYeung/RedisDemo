@@ -7,3 +7,5 @@ https://rubygems.org/gems/redis/versions/3.2.1<br/>
 
 ### Redis常用的备份方式
 https://blog.csdn.net/moshenglv/article/details/72847811
+
+redis如果不配置主从，则redis写数据时只会在n台机器中的一台上
