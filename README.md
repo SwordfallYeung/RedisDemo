@@ -16,5 +16,8 @@ http://www.cnblogs.com/EasonJim/p/7624903.html
 ### Redis 分片集群连接ShardedJedis 这个有问题，连不上集群
 http://www.codedocs.net/blog/470
 
-### Redis 集群重启
+### Redis 集群重启 redis-trib.tb fix
 https://www.cnblogs.com/kevingrace/p/5569929.html
+
+### Redis 当前库大小查看
+dbsize则是当前库key的数量
