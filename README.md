@@ -12,3 +12,6 @@ redis如果不配置主从，则redis写数据时只会在n台机器中的一台
 
 ### Redis 范围分区与哈希分区
 http://www.cnblogs.com/EasonJim/p/7624903.html
+
+### Redis 分片集群连接ShardedJedis
+http://www.codedocs.net/blog/470
