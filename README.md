@@ -23,3 +23,5 @@ https://www.cnblogs.com/kevingrace/p/5569929.html
 dbsize则是当前库key的数量
 
 我觉得几千万个key, 如果影响查询速度可以分成几个redis来做就行了，不是什么大问题，保证内存够用就可以了
+
+Redis是典型的CPU密集型应用，同一台服务器不建议部署其他服务，如果需要不是多个Redis实例也建议绑定CPU。
