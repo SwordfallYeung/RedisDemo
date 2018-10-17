@@ -21,3 +21,5 @@ https://www.cnblogs.com/kevingrace/p/5569929.html
 
 ### Redis 当前库大小查看
 dbsize则是当前库key的数量
+
+我觉得几千万个key, 如果影响查询速度可以分成几个redis来做就行了，不是什么大问题，保证内存够用就可以了
